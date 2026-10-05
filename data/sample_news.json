@@ -1,0 +1,22 @@
+[
+  {
+    "ticker": "AAPL",
+    "text": "Factory shutdown halts production of new iPhone model.",
+    "source": "MockNewsAPI"
+  },
+  {
+    "ticker": "MSFT",
+    "text": "Microsoft announces better-than-expected cloud revenue for Q3.",
+    "source": "MockNewsAPI"
+  },
+  {
+    "ticker": "TSLA",
+    "text": "Tesla secures massive battery supply deal in Europe.",
+    "source": "MockNewsAPI"
+  },
+  {
+    "ticker": "NVDA",
+    "text": "Nvidia faces new export restrictions on AI chips.",
+    "source": "MockNewsAPI"
+  }
+]
