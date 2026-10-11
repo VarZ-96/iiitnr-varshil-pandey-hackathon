@@ -195,7 +195,7 @@ TEST REPORT: ENTERPRISE GUARDRAILS & PERFORMANCE
 1. **Flash Crash Mitigation:** The z-score volatility guard successfully halts panic rebalancing during extreme sentiment spikes ($|z| > 3.0$), insulating index tracking portfolios from flash-crash losses.
 2. **Deterministic Governance:** By substituting black-box generative models with specialized FinBERT and zero-shot classification, all signal inferences are deterministic, auditable, and production-compliant for regulatory scrutiny.
 3. **Institutional Risk Adherence:** The active-set iterative projection mathematically guarantees that no single asset exceeds the 25% concentration ceiling or falls below the 2% floor, strictly satisfying UCITS/SEC index diversification mandates.
-4. **Production Scalability:** Sub-500ms P99 latency under concurrent load proves viability for real-time institutional order-routing architectures.
+4. **Production Scalability & Roadmap:** The current architecture uses an in-memory normalized semantic cache (`ticker + normalized_text`) and worker threadpools to achieve sub-500ms P99 latency without blocking the ASGI event loop. On our engineering roadmap, we have designed a **Singleflight Request Coalescing layer** to deduplicate concurrent in-flight coroutines, ensuring that simultaneous identical headlines (e.g., a breaking RSS feed hitting 50 times at once) await a single shared inference task, completely eliminating the thundering herd problem at scale.
 
 ---
 
