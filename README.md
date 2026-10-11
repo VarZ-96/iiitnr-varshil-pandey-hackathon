@@ -1,10 +1,12 @@
-# Event-Driven Quantitative NLP Pipeline & Tactical Index Rebalancing Platform - S&P Global & Crisil Campus Hackathon
+# Event-Driven Quantitative NLP Pipeline & Tactical Index Rebalancing Platform
 
-**Candidate Name:** Varshil Pandey  
-**College Email ID:** varshil24100@iiitnr.edu.in  
-**College / Campus:** International Institute of Information Technology, Naya Raipur (IIIT-NR)  
-**Demo Video Link:** [YouTube (Unlisted) - Placeholder](https://youtube.com/placeholder-demo)  
-**Slide Deck Link (if hosted externally):** [Presentation Slide Deck (docs/presentation.pdf)](docs/presentation.pdf)  
+| Field | Detail |
+| :--- | :--- |
+| **Candidate Name** | Varshil Pandey |
+| **College Email** | varshil24100@iiitnr.edu.in |
+| **College** | International Institute of Information Technology, Naya Raipur (IIIT-NR) |
+| **Demo Video Link** | [Watch YouTube Demo](https://youtu.be/qjXmQLSmd3c) |
+| **Slide Deck Link** | [Presentation Slide Deck (docs/presentation.pdf)](docs/presentation.pdf) |
 
 ---
 
