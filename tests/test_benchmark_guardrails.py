@@ -22,6 +22,11 @@ from src.db.repositories.portfolio_repo import SessionLocal, DBPortfolioSnapshot
 # Global report accumulator for the structured output
 REPORT_RESULTS = {}
 
+@pytest.fixture(scope="session", autouse=True)
+def print_report_after_suite():
+    yield
+    print_structured_report()
+
 @pytest.mark.asyncio
 async def test_confidence_based_routing():
     """
