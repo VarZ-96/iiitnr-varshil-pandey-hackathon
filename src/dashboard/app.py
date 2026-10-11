@@ -23,6 +23,18 @@ st.title("📈 Tactical Index Rebalancing Platform")
 st.markdown("### Powered by Event-Driven NLP & Iterative Simplex Rebalancing")
 
 # --- Helper: Database Snapshot & Signal Fetching ---
+def reset_portfolio_history():
+    """Wipes portfolio history and risk signals, restoring baseline 10% equal weights."""
+    try:
+        from src.db.repositories.portfolio_repo import SessionLocal, DBPortfolioSnapshot, DBAllocationDetail, DBRiskSignal
+        with SessionLocal() as session:
+            session.query(DBAllocationDetail).delete()
+            session.query(DBPortfolioSnapshot).delete()
+            session.query(DBRiskSignal).delete()
+            session.commit()
+    except Exception as e:
+        print(f"Error resetting database: {e}")
+
 def fetch_latest_portfolio_snapshot():
     try:
         from src.db.repositories.portfolio_repo import SessionLocal, DBPortfolioSnapshot
@@ -158,6 +170,20 @@ with st.sidebar.form(key="ingest_form"):
                     st.sidebar.error(f"Error: {res.text}")
             except Exception as e:
                 st.sidebar.error(f"Failed to connect to API Backend. Is FastAPI running? Exception: {e}")
+
+# --- Sidebar: Clean Slate Demo Reset Button ---
+st.sidebar.divider()
+st.sidebar.subheader("⚙️ Demo Controls")
+if st.sidebar.button("🔄 Reset Portfolio to Baseline (10%)", help="Clears historical signals and snapshots to start with a fresh 10% equal-weight portfolio for demonstrations."):
+    reset_portfolio_history()
+    # Reset session state baseline
+    st.session_state.portfolio_weights = {
+        "AAPL": 0.1, "MSFT": 0.1, "GOOGL": 0.1, "AMZN": 0.1, "NVDA": 0.1,
+        "META": 0.1, "TSLA": 0.1, "BRK.B": 0.1, "UNH": 0.1, "JNJ": 0.1
+    }
+    st.session_state.recent_signals = []
+    st.sidebar.success("Portfolio reset to 10% equal-weight baseline!")
+    st.rerun()
 
 # --- Main Dashboard ---
 col1, col2 = st.columns([3, 1])
