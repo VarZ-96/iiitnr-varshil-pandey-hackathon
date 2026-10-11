@@ -20,19 +20,10 @@ async def ingest_signal(request: IngestFeedRequest, nlp: NLPService = Depends(ge
     logger.info(f"Received ingest request for ticker: {request.ticker}")
     try:
         signal = await run_in_threadpool(nlp.extract_signal, request.ticker, request.text)
-        
-        # Persist to DB atomically using a short-lived session
-        try:
-            from src.db.repositories.portfolio_repo import SessionLocal, PortfolioRepository
-            with SessionLocal() as session:
-                repo = PortfolioRepository(session)
-                repo.save_risk_signal(signal)
-        except Exception as db_err:
-            logger.warning(f"Failed to persist risk signal to DB: {db_err}")
-            
         return signal
     except Exception as e:
         logger.error(f"Error processing signal: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
+
 
 

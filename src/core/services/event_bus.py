@@ -45,13 +45,22 @@ class EventBus:
                 if loop and loop.is_running():
                     loop.create_task(self._safe_async_execute(callback, data, event_type))
                 else:
-                    asyncio.run(self._safe_async_execute(callback, data, event_type))
+                    import threading
+                    threading.Thread(
+                        target=lambda: asyncio.run(self._safe_async_execute(callback, data, event_type)), 
+                        daemon=True
+                    ).start()
             else:
-                # Synchronous callback: schedule in threadpool to prevent blocking the ASGI event loop
+                # Synchronous callback: execute in background thread to never stall the HTTP response
                 if loop and loop.is_running():
                     loop.create_task(asyncio.to_thread(self._safe_execute, callback, data, event_type))
                 else:
-                    self._safe_execute(callback, data, event_type)
+                    import threading
+                    threading.Thread(
+                        target=self._safe_execute, 
+                        args=(callback, data, event_type), 
+                        daemon=True
+                    ).start()
 
 # Global singleton event bus
 event_bus = EventBus()
