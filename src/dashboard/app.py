@@ -34,6 +34,15 @@ def reset_portfolio_history():
             session.commit()
     except Exception as e:
         print(f"Error resetting database: {e}")
+    try:
+        requests.post(f"{API_URL}/portfolio/reset", timeout=2)
+    except Exception:
+        pass
+    try:
+        from src.core.services.rebalancer_service import rebalancer_service
+        rebalancer_service.historical_signals.clear()
+    except Exception:
+        pass
 
 def fetch_latest_portfolio_snapshot():
     try:

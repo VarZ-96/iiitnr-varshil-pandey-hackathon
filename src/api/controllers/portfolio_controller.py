@@ -26,3 +26,14 @@ def trigger_rebalance(request: RebalanceRequest, rebalancer: RebalancerService =
     except Exception as e:
         logger.error(f"Error during rebalancing: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
+
+@router.post("/reset", status_code=200)
+def reset_portfolio(rebalancer: RebalancerService = Depends(get_rebalancer_service)):
+    """
+    Clears the in-memory historical signal buffer and resets strategy state.
+    """
+    logger.info("Resetting RebalancerService in-memory historical signals.")
+    rebalancer.historical_signals.clear()
+    return {"status": "success", "message": "In-memory signals cleared"}
+
+
