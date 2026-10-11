@@ -104,11 +104,13 @@ st.divider()
 st.subheader("Recent Risk Signals")
 if st.session_state.recent_signals:
     df_signals = pd.DataFrame(st.session_state.recent_signals)
-    # Reorder columns for presentation
-    df_signals = df_signals[['created_at', 'ticker', 'event_type', 'sentiment_score', 'impact_score']]
+    # Reorder columns for presentation including Phase 7 confidence & status
+    cols_to_show = [c for c in ['created_at', 'ticker', 'event_type', 'sentiment_score', 'impact_score', 'confidence_score', 'status'] if c in df_signals.columns]
+    df_signals = df_signals[cols_to_show]
     st.dataframe(
-        df_signals.style.format({'sentiment_score': '{:.4f}'}),
+        df_signals,
         use_container_width=True
     )
+
 else:
     st.info("No risk signals processed yet. Use the sidebar to ingest unstructured market news.")

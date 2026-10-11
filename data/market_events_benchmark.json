@@ -1,0 +1,491 @@
+[
+  {
+    "id": "EVT-001",
+    "ticker": "AAPL",
+    "text": "Apple unveils M4-powered iPad Pro lineup with advanced neural engine capabilities.",
+    "event_type": "Product Launch",
+    "source": "Public RSS / Reuters Technology",
+    "metadata": {"date": "2024-05-07", "data_source": "public RSS", "expected_sentiment": "positive"}
+  },
+  {
+    "id": "EVT-002",
+    "ticker": "AAPL",
+    "text": "Department of Justice files landmark antitrust lawsuit against Apple over iPhone ecosystem lock-in.",
+    "event_type": "Geopolitical",
+    "source": "Historical SEC Filings / Form 8-K",
+    "metadata": {"date": "2024-03-21", "data_source": "historical SEC filings", "expected_sentiment": "negative"}
+  },
+  {
+    "id": "EVT-003",
+    "ticker": "AAPL",
+    "text": "Moody's affirms Apple's Aaa credit rating with stable outlook following $110B capital return program.",
+    "event_type": "Credit Event",
+    "source": "Moody's Investors Service Credit Opinion",
+    "metadata": {"date": "2024-05-03", "data_source": "public RSS", "expected_sentiment": "positive"}
+  },
+  {
+    "id": "EVT-004",
+    "ticker": "AAPL",
+    "text": "Apple acquires AI vision startup DarwinAI to accelerate on-device generative AI features.",
+    "event_type": "Merger/Acquisition",
+    "source": "Bloomberg Markets Newsfeed",
+    "metadata": {"date": "2024-03-14", "data_source": "public RSS", "expected_sentiment": "positive"}
+  },
+  {
+    "id": "EVT-005",
+    "ticker": "AAPL",
+    "text": "Consumer spending contraction in European consumer electronics dampens smartphone replacement cycle.",
+    "event_type": "Macroeconomic",
+    "source": "Synthetic Stress Test / Macro Sim",
+    "metadata": {"date": "2024-06-15", "data_source": "synthetic stress test", "expected_sentiment": "negative"}
+  },
+  {
+    "id": "EVT-006",
+    "ticker": "AAPL",
+    "text": "New trade export controls restrict shipment of key thermal dissipation components to Asian assembly hubs.",
+    "event_type": "Geopolitical",
+    "source": "Synthetic Stress Test / Tariff Shock",
+    "metadata": {"date": "2024-08-01", "data_source": "synthetic stress test", "expected_sentiment": "negative"}
+  },
+
+  {
+    "id": "EVT-007",
+    "ticker": "MSFT",
+    "text": "Microsoft completes acquisition of Activision Blizzard following regulatory clearance across EU and UK.",
+    "event_type": "Merger/Acquisition",
+    "source": "Historical SEC Filings / Form 8-K",
+    "metadata": {"date": "2023-10-13", "data_source": "historical SEC filings", "expected_sentiment": "positive"}
+  },
+  {
+    "id": "EVT-008",
+    "ticker": "MSFT",
+    "text": "Microsoft launches Copilot for Security powered by GPT-4 to automate cybersecurity threat defense.",
+    "event_type": "Product Launch",
+    "source": "Public RSS / Microsoft Official Blog",
+    "metadata": {"date": "2024-04-01", "data_source": "public RSS", "expected_sentiment": "positive"}
+  },
+  {
+    "id": "EVT-009",
+    "ticker": "MSFT",
+    "text": "Federal Reserve monetary policy tightening increases enterprise discount rates and softens IT software budgets.",
+    "event_type": "Macroeconomic",
+    "source": "Synthetic Stress Test / Fed Policy Shock",
+    "metadata": {"date": "2024-02-15", "data_source": "synthetic stress test", "expected_sentiment": "negative"}
+  },
+  {
+    "id": "EVT-010",
+    "ticker": "MSFT",
+    "text": "S&P Global affirms Microsoft AAA issuer rating with stable outlook backed by recurring Azure cash flows.",
+    "event_type": "Credit Event",
+    "source": "S&P Global Ratings Release",
+    "metadata": {"date": "2024-01-20", "data_source": "public RSS", "expected_sentiment": "positive"}
+  },
+  {
+    "id": "EVT-011",
+    "ticker": "MSFT",
+    "text": "European Commission initiates preliminary inquiry regarding unbundling of Teams from Microsoft 365.",
+    "event_type": "Geopolitical",
+    "source": "Financial Times Regulatory Dispatch",
+    "metadata": {"date": "2024-03-05", "data_source": "public RSS", "expected_sentiment": "negative"}
+  },
+  {
+    "id": "EVT-012",
+    "ticker": "MSFT",
+    "text": "Microsoft expands data sovereignty sovereign cloud initiative across NATO European member defense agencies.",
+    "event_type": "Geopolitical",
+    "source": "Public RSS / Defense Tech Wire",
+    "metadata": {"date": "2024-07-12", "data_source": "public RSS", "expected_sentiment": "positive"}
+  },
+
+  {
+    "id": "EVT-013",
+    "ticker": "GOOGL",
+    "text": "Google introduces Gemini 1.5 Pro multimodal foundation model with 1 million token context window.",
+    "event_type": "Product Launch",
+    "source": "Public RSS / Google AI Blog",
+    "metadata": {"date": "2024-02-15", "data_source": "public RSS", "expected_sentiment": "positive"}
+  },
+  {
+    "id": "EVT-014",
+    "ticker": "GOOGL",
+    "text": "Alphabet issues $10 billion senior notes including inaugurating inaugural dividend payment framework.",
+    "event_type": "Credit Event",
+    "source": "Historical SEC Filings / Form 424B2",
+    "metadata": {"date": "2024-04-26", "data_source": "historical SEC filings", "expected_sentiment": "neutral"}
+  },
+  {
+    "id": "EVT-015",
+    "ticker": "GOOGL",
+    "text": "US antitrust court verdict scrutinizes default search engine revenue sharing agreements.",
+    "event_type": "Geopolitical",
+    "source": "Wall Street Journal Legal Watch",
+    "metadata": {"date": "2024-08-05", "data_source": "public RSS", "expected_sentiment": "negative"}
+  },
+  {
+    "id": "EVT-016",
+    "ticker": "GOOGL",
+    "text": "Alphabet in advanced talks to acquire cybersecurity cloud leader Wiz for approximately $23 billion.",
+    "event_type": "Merger/Acquisition",
+    "source": "Bloomberg Deal Reporter",
+    "metadata": {"date": "2024-07-14", "data_source": "public RSS", "expected_sentiment": "positive"}
+  },
+  {
+    "id": "EVT-017",
+    "ticker": "GOOGL",
+    "text": "Global digital ad spend forecasts revised downward as retail and finance advertising budgets normalize.",
+    "event_type": "Macroeconomic",
+    "source": "Synthetic Stress Test / Ad Market Contraction",
+    "metadata": {"date": "2024-05-18", "data_source": "synthetic stress test", "expected_sentiment": "negative"}
+  },
+  {
+    "id": "EVT-018",
+    "ticker": "GOOGL",
+    "text": "Google Cloud secures exclusive infrastructure deployment deal with Singapore sovereign wealth agency.",
+    "event_type": "Product Launch",
+    "source": "Public RSS / APAC Financial News",
+    "metadata": {"date": "2024-06-22", "data_source": "public RSS", "expected_sentiment": "positive"}
+  },
+
+  {
+    "id": "EVT-019",
+    "ticker": "AMZN",
+    "text": "Amazon Web Services announces general availability of AWS Graviton4 and Trainium2 custom silicon.",
+    "event_type": "Product Launch",
+    "source": "Public RSS / AWS Press Release",
+    "metadata": {"date": "2023-11-28", "data_source": "public RSS", "expected_sentiment": "positive"}
+  },
+  {
+    "id": "EVT-020",
+    "ticker": "AMZN",
+    "text": "Amazon terminates $1.4 billion iRobot acquisition agreement following lack of EU regulatory approval.",
+    "event_type": "Merger/Acquisition",
+    "source": "Historical SEC Filings / Form 8-K",
+    "metadata": {"date": "2024-01-29", "data_source": "historical SEC filings", "expected_sentiment": "negative"}
+  },
+  {
+    "id": "EVT-021",
+    "ticker": "AMZN",
+    "text": "Fitch affirms Amazon senior unsecured rating at AA with stable outlook citing surging AWS free cash flow.",
+    "event_type": "Credit Event",
+    "source": "Fitch Ratings Commentary",
+    "metadata": {"date": "2024-03-12", "data_source": "public RSS", "expected_sentiment": "positive"}
+  },
+  {
+    "id": "EVT-022",
+    "ticker": "AMZN",
+    "text": "Surging diesel fuel prices and port freight congestions drive up cross-border logistics fulfillment expenses.",
+    "event_type": "Macroeconomic",
+    "source": "Synthetic Stress Test / Supply Chain Inflation",
+    "metadata": {"date": "2024-04-10", "data_source": "synthetic stress test", "expected_sentiment": "negative"}
+  },
+  {
+    "id": "EVT-023",
+    "ticker": "AMZN",
+    "text": "Federal Trade Commission lawsuit challenges fulfillment exclusivity clauses with third-party merchant partners.",
+    "event_type": "Geopolitical",
+    "source": "Historical SEC Filings / Form 10-Q",
+    "metadata": {"date": "2023-09-26", "data_source": "historical SEC filings", "expected_sentiment": "negative"}
+  },
+  {
+    "id": "EVT-024",
+    "ticker": "AMZN",
+    "text": "Amazon expands Project Kuiper satellite broadband launch manifest with multiple successful orbital trials.",
+    "event_type": "Product Launch",
+    "source": "Public RSS / SpaceNews Enterprise",
+    "metadata": {"date": "2024-06-30", "data_source": "public RSS", "expected_sentiment": "positive"}
+  },
+
+  {
+    "id": "EVT-025",
+    "ticker": "NVDA",
+    "text": "Nvidia announces Blackwell B200 GPU architecture delivering up to 30x inference speedup over Hopper.",
+    "event_type": "Product Launch",
+    "source": "Public RSS / GTC 2024 Keynote",
+    "metadata": {"date": "2024-03-18", "data_source": "public RSS", "expected_sentiment": "positive"}
+  },
+  {
+    "id": "EVT-026",
+    "ticker": "NVDA",
+    "text": "US Commerce Department tightens advanced semiconductor export license controls to international markets.",
+    "event_type": "Geopolitical",
+    "source": "Federal Register / Bureau of Industry and Security",
+    "metadata": {"date": "2023-10-17", "data_source": "historical SEC filings", "expected_sentiment": "negative"}
+  },
+  {
+    "id": "EVT-027",
+    "ticker": "NVDA",
+    "text": "S&P Global upgrades Nvidia corporate credit rating to AA- following explosive margin expansion and zero net debt.",
+    "event_type": "Credit Event",
+    "source": "S&P Global Ratings Research",
+    "metadata": {"date": "2024-05-24", "data_source": "public RSS", "expected_sentiment": "positive"}
+  },
+  {
+    "id": "EVT-028",
+    "ticker": "NVDA",
+    "text": "Nvidia completes acquisition of Run:ai to optimize enterprise GPU orchestration and cluster utilization.",
+    "event_type": "Merger/Acquisition",
+    "source": "Public RSS / TechCrunch Venture",
+    "metadata": {"date": "2024-04-24", "data_source": "public RSS", "expected_sentiment": "positive"}
+  },
+  {
+    "id": "EVT-029",
+    "ticker": "NVDA",
+    "text": "Global wafer fabrication equipment lead times lengthen amidst geopolitical tensions across Taiwan strait.",
+    "event_type": "Macroeconomic",
+    "source": "Synthetic Stress Test / Foundry Bottleneck",
+    "metadata": {"date": "2024-07-05", "data_source": "synthetic stress test", "expected_sentiment": "negative"}
+  },
+  {
+    "id": "EVT-030",
+    "ticker": "NVDA",
+    "text": "Nvidia executes 10-for-1 forward stock split after quarterly revenue surges 262% year-over-year.",
+    "event_type": "Credit Event",
+    "source": "Historical SEC Filings / Form 8-K",
+    "metadata": {"date": "2024-05-22", "data_source": "historical SEC filings", "expected_sentiment": "positive"}
+  },
+
+  {
+    "id": "EVT-031",
+    "ticker": "META",
+    "text": "Meta releases Llama 3 open-weights frontier intelligence model family trained on 15T token corpus.",
+    "event_type": "Product Launch",
+    "source": "Public RSS / Meta AI Research",
+    "metadata": {"date": "2024-04-18", "data_source": "public RSS", "expected_sentiment": "positive"}
+  },
+  {
+    "id": "EVT-032",
+    "ticker": "META",
+    "text": "European Data Protection Board imposes regulatory penalty regarding cross-border data transfer compliance.",
+    "event_type": "Geopolitical",
+    "source": "Historical SEC Filings / Form 10-Q",
+    "metadata": {"date": "2023-05-22", "data_source": "historical SEC filings", "expected_sentiment": "negative"}
+  },
+  {
+    "id": "EVT-033",
+    "ticker": "META",
+    "text": "Meta issues inaugural $10.5 billion multi-tranche corporate debt offering with overwhelming oversubscription.",
+    "event_type": "Credit Event",
+    "source": "Historical SEC Filings / Form 424B2",
+    "metadata": {"date": "2023-08-01", "data_source": "historical SEC filings", "expected_sentiment": "neutral"}
+  },
+  {
+    "id": "EVT-034",
+    "ticker": "META",
+    "text": "Meta closes acquisition of synthetic audio spatial acoustics engineering studio to fortify Reality Labs.",
+    "event_type": "Merger/Acquisition",
+    "source": "Public RSS / VentureBeat Audio",
+    "metadata": {"date": "2024-01-15", "data_source": "public RSS", "expected_sentiment": "positive"}
+  },
+  {
+    "id": "EVT-035",
+    "ticker": "META",
+    "text": "Broad cooling in consumer discretionary goods marketing dampens CPC growth across social commerce platforms.",
+    "event_type": "Macroeconomic",
+    "source": "Synthetic Stress Test / CPC Softening",
+    "metadata": {"date": "2024-06-11", "data_source": "synthetic stress test", "expected_sentiment": "negative"}
+  },
+  {
+    "id": "EVT-036",
+    "ticker": "META",
+    "text": "Meta expands Ray-Ban Meta AI smart glasses to new international markets following surging unit demand.",
+    "event_type": "Product Launch",
+    "source": "Public RSS / The Verge Hardware",
+    "metadata": {"date": "2024-05-19", "data_source": "public RSS", "expected_sentiment": "positive"}
+  },
+
+  {
+    "id": "EVT-037",
+    "ticker": "TSLA",
+    "text": "Tesla deploys Full Self-Driving Supervised v12 with end-to-end neural network driving policy.",
+    "event_type": "Product Launch",
+    "source": "Public RSS / Electrek Automotive",
+    "metadata": {"date": "2024-03-16", "data_source": "public RSS", "expected_sentiment": "positive"}
+  },
+  {
+    "id": "EVT-038",
+    "ticker": "TSLA",
+    "text": "European Union announces provisional countervailing tariffs on electric vehicles imported from China.",
+    "event_type": "Geopolitical",
+    "source": "European Commission Trade Policy Release",
+    "metadata": {"date": "2024-06-12", "data_source": "public RSS", "expected_sentiment": "negative"}
+  },
+  {
+    "id": "EVT-039",
+    "ticker": "TSLA",
+    "text": "S&P Global upgrades Tesla to investment-grade BBB credit rating with positive outlook on zero debt leverage.",
+    "event_type": "Credit Event",
+    "source": "S&P Global Ratings Bull",
+    "metadata": {"date": "2023-10-06", "data_source": "public RSS", "expected_sentiment": "positive"}
+  },
+  {
+    "id": "EVT-040",
+    "ticker": "TSLA",
+    "text": "Tesla explores strategic asset purchase of wireless inductive charging developer Wiferion.",
+    "event_type": "Merger/Acquisition",
+    "source": "Handelsblatt Technology Briefing",
+    "metadata": {"date": "2023-07-28", "data_source": "public RSS", "expected_sentiment": "positive"}
+  },
+  {
+    "id": "EVT-041",
+    "ticker": "TSLA",
+    "text": "Elevated benchmark interest rates continue to depress consumer auto loan originations and monthly payment affordability.",
+    "event_type": "Macroeconomic",
+    "source": "Synthetic Stress Test / High Rate Regime",
+    "metadata": {"date": "2024-04-20", "data_source": "synthetic stress test", "expected_sentiment": "negative"}
+  },
+  {
+    "id": "EVT-042",
+    "ticker": "TSLA",
+    "text": "Tesla Megapack grid energy storage deployment hits record gigawatt-hour installations across California and Australia.",
+    "event_type": "Product Launch",
+    "source": "Historical SEC Filings / Form 10-K",
+    "metadata": {"date": "2024-01-24", "data_source": "historical SEC filings", "expected_sentiment": "positive"}
+  },
+
+  {
+    "id": "EVT-043",
+    "ticker": "BRK.B",
+    "text": "Berkshire Hathaway cash hoard reaches all-time record $189 billion as Buffett reduces equity holdings.",
+    "event_type": "Macroeconomic",
+    "source": "Historical SEC Filings / Form 10-Q",
+    "metadata": {"date": "2024-05-04", "data_source": "historical SEC filings", "expected_sentiment": "neutral"}
+  },
+  {
+    "id": "EVT-044",
+    "ticker": "BRK.B",
+    "text": "Berkshire Hathaway energy subsidiary completes multi-billion acquisition of Dominion Energy natural gas assets.",
+    "event_type": "Merger/Acquisition",
+    "source": "Historical SEC Filings / Form 8-K",
+    "metadata": {"date": "2023-09-01", "data_source": "historical SEC filings", "expected_sentiment": "positive"}
+  },
+  {
+    "id": "EVT-045",
+    "ticker": "BRK.B",
+    "text": "Moody's reaffirms Berkshire Hathaway insurance operations Aa1 financial strength rating.",
+    "event_type": "Credit Event",
+    "source": "Moody's Financial Institutions Group",
+    "metadata": {"date": "2024-02-18", "data_source": "public RSS", "expected_sentiment": "positive"}
+  },
+  {
+    "id": "EVT-046",
+    "ticker": "BRK.B",
+    "text": "Severe North American hurricane reinsurance underwriting claims exceed seasonal historical averages.",
+    "event_type": "Macroeconomic",
+    "source": "Synthetic Stress Test / P&C Catastrophe Loss",
+    "metadata": {"date": "2024-08-10", "data_source": "synthetic stress test", "expected_sentiment": "negative"}
+  },
+  {
+    "id": "EVT-047",
+    "ticker": "BRK.B",
+    "text": "Berkshire expands pilot commercial solar storage installation across BNSF Railway intermodal freight hubs.",
+    "event_type": "Product Launch",
+    "source": "Public RSS / FreightWaves Journal",
+    "metadata": {"date": "2024-03-29", "data_source": "public RSS", "expected_sentiment": "positive"}
+  },
+  {
+    "id": "EVT-048",
+    "ticker": "BRK.B",
+    "text": "International tax treaty renegotiations alter repatriation covenants for offshore holding company subsidiaries.",
+    "event_type": "Geopolitical",
+    "source": "OECD Policy Monitor",
+    "metadata": {"date": "2024-06-25", "data_source": "public RSS", "expected_sentiment": "negative"}
+  },
+
+  {
+    "id": "EVT-049",
+    "ticker": "UNH",
+    "text": "UnitedHealth Optum unit suffers unprecedented cyberattack halting nationwide pharmacy claims clearing.",
+    "event_type": "Credit Event",
+    "source": "Historical SEC Filings / Form 8-K",
+    "metadata": {"date": "2024-02-21", "data_source": "historical SEC filings", "expected_sentiment": "negative"}
+  },
+  {
+    "id": "EVT-050",
+    "ticker": "UNH",
+    "text": "UnitedHealth Group closes $3.3 billion strategic merger with home health care provider Amedisys.",
+    "event_type": "Merger/Acquisition",
+    "source": "Department of Justice Merger Review",
+    "metadata": {"date": "2023-06-26", "data_source": "historical SEC filings", "expected_sentiment": "positive"}
+  },
+  {
+    "id": "EVT-051",
+    "ticker": "UNH",
+    "text": "Centers for Medicare & Medicaid Services finalize modest Medicare Advantage benchmark payment rates.",
+    "event_type": "Macroeconomic",
+    "source": "CMS Official Guidance Notice",
+    "metadata": {"date": "2024-04-01", "data_source": "public RSS", "expected_sentiment": "negative"}
+  },
+  {
+    "id": "EVT-052",
+    "ticker": "UNH",
+    "text": "UnitedHealth rolls out AI-guided predictive diagnostic navigation platform across ambulatory clinical networks.",
+    "event_type": "Product Launch",
+    "source": "Public RSS / Healthcare IT News",
+    "metadata": {"date": "2024-05-15", "data_source": "public RSS", "expected_sentiment": "positive"}
+  },
+  {
+    "id": "EVT-053",
+    "ticker": "UNH",
+    "text": "Department of Justice initiates non-public antitrust investigation into ties between UnitedHealthcare and Optum.",
+    "event_type": "Geopolitical",
+    "source": "Wall Street Journal Healthcare Watch",
+    "metadata": {"date": "2024-02-27", "data_source": "public RSS", "expected_sentiment": "negative"}
+  },
+  {
+    "id": "EVT-054",
+    "ticker": "UNH",
+    "text": "Fitch Ratings affirms UnitedHealth Long-Term Issuer Default Rating at A+ following liquidity remediation.",
+    "event_type": "Credit Event",
+    "source": "Fitch Ratings Public Bulletin",
+    "metadata": {"date": "2024-03-25", "data_source": "public RSS", "expected_sentiment": "positive"}
+  },
+
+  {
+    "id": "EVT-055",
+    "ticker": "JNJ",
+    "text": "Johnson & Johnson successfully completes $13.1 billion acquisition of Shockwave Medical to lead cardiovascular intervention.",
+    "event_type": "Merger/Acquisition",
+    "source": "Historical SEC Filings / Form 8-K",
+    "metadata": {"date": "2024-05-31", "data_source": "historical SEC filings", "expected_sentiment": "positive"}
+  },
+  {
+    "id": "EVT-056",
+    "ticker": "JNJ",
+    "text": "FDA approves Johnson & Johnson Rybrevant combined regimen for first-line treatment of EGFR-mutated lung cancer.",
+    "event_type": "Product Launch",
+    "source": "FDA Oncology Center of Excellence Press Release",
+    "metadata": {"date": "2024-03-01", "data_source": "public RSS", "expected_sentiment": "positive"}
+  },
+  {
+    "id": "EVT-057",
+    "ticker": "JNJ",
+    "text": "Johnson & Johnson proposes $6.48 billion talc bankruptcy settlement plan to resolve 99% of pending ovarian claims.",
+    "event_type": "Credit Event",
+    "source": "Historical SEC Filings / Form 8-K",
+    "metadata": {"date": "2024-05-01", "data_source": "historical SEC filings", "expected_sentiment": "positive"}
+  },
+  {
+    "id": "EVT-058",
+    "ticker": "JNJ",
+    "text": "Medicare price negotiation program initial maximum fair price guidelines impact select legacy biologic therapies.",
+    "event_type": "Macroeconomic",
+    "source": "HHS Health Financing Review",
+    "metadata": {"date": "2024-07-01", "data_source": "public RSS", "expected_sentiment": "negative"}
+  },
+  {
+    "id": "EVT-059",
+    "ticker": "JNJ",
+    "text": "Global active pharmaceutical ingredient export restrictions threaten clinical oncology trial supply chains.",
+    "event_type": "Geopolitical",
+    "source": "Synthetic Stress Test / API Export Embargo",
+    "metadata": {"date": "2024-08-15", "data_source": "synthetic stress test", "expected_sentiment": "negative"}
+  },
+  {
+    "id": "EVT-060",
+    "ticker": "JNJ",
+    "text": "S&P Global affirms AAA credit rating for Johnson & Johnson with stable outlook, marking elite capital position.",
+    "event_type": "Credit Event",
+    "source": "S&P Global Ratings Corporate Analysis",
+    "metadata": {"date": "2024-04-12", "data_source": "public RSS", "expected_sentiment": "positive"}
+  }
+]

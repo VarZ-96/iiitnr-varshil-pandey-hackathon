@@ -3,6 +3,10 @@ from typing import List, Dict
 from src.models.schemas import RiskSignal, RebalanceResponse, AllocationDetail
 from src.core.services.event_bus import event_bus
 from src.core.services.strategy import IRebalanceStrategy, SentimentTiltedStrategy
+from src.db.repositories.portfolio_repo import (
+    fetch_historical_signals_and_close,
+    save_rebalance_and_close,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -15,7 +19,7 @@ class RebalancerService:
         }
         self.strategy = strategy or SentimentTiltedStrategy()
         
-        # Historical in-memory cache (acts as repository proxy for now)
+        # In-memory signal cache
         self.historical_signals: List[RiskSignal] = []
 
         # Subscribe to Event Bus to act as an ISignalObserver
@@ -28,12 +32,27 @@ class RebalancerService:
         self.rebalance()
 
     def rebalance(self) -> RebalanceResponse:
+        """
+        Executes tactical portfolio rebalancing with strict connection pool management:
+        1. Fetches historical signals and immediately closes DB session.
+        2. Executes CPU-bound quant math in memory with ZERO DB connections held open.
+        3. Opens a brief, dedicated session solely to atomically commit the rebalance snapshot.
+        """
         logger.info("Executing tactical portfolio rebalance with selected strategy...")
         
-        # 1. Compute new target weights
-        new_weights_dict = self.strategy.calculate_weights(self.baseline_weights, self.historical_signals)
+        # 1. Fetch historical signals and immediately release DB connection
+        try:
+            db_signals = fetch_historical_signals_and_close(limit=100)
+            existing_ids = {d.id for d in db_signals}
+            combined_signals = db_signals + [s for s in self.historical_signals if s.id not in existing_ids]
+        except Exception as e:
+            logger.warning(f"Could not load historical signals from DB: {e}. Using in-memory buffer.")
+            combined_signals = self.historical_signals
         
-        # 2. Package into strictly validated schemas
+        # 2. Run heavy math purely in memory (ZERO connections held open in QueuePool)
+        new_weights_dict = self.strategy.calculate_weights(self.baseline_weights, combined_signals)
+        
+        # 3. Package into strictly validated schemas
         allocations = []
         sum_weights = 0.0
         for ticker, weight in new_weights_dict.items():
@@ -42,17 +61,18 @@ class RebalancerService:
             
         response = RebalanceResponse(
             weights=allocations,
-            sum=sum_weights
+            sum=round(sum_weights, 6)
         )
         
-        # 3. Save to Repositories (Mocked via logging for now)
-        logger.info(f"--- MOCK DB COMMIT STARTED ---")
-        logger.info(f"INSERT INTO PORTFOLIO_SNAPSHOT (id, created_at) VALUES ('{response.snapshot_id}', NOW())")
-        for alloc in response.weights:
-            logger.info(f"INSERT INTO ALLOCATION_DETAIL (snapshot_id, ticker, weight) VALUES ('{response.snapshot_id}', '{alloc.ticker}', {alloc.weight:.5f})")
-        logger.info(f"--- MOCK DB COMMIT ENDED. Sum: {response.sum:.5f} ---")
+        # 4. Open brief new session solely for atomic INSERT
+        try:
+            save_rebalance_and_close(response)
+            logger.info(f"Successfully committed PORTFOLIO_SNAPSHOT {response.snapshot_id} to DB.")
+        except Exception as e:
+            logger.error(f"Failed to persist rebalance snapshot to DB: {e}")
             
         return response
 
 # Initialize singleton to automatically subscribe on module load
 rebalancer_service = RebalancerService()
+

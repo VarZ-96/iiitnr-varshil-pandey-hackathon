@@ -14,7 +14,10 @@ class RiskSignal(BaseModel):
     sentiment_score: float = Field(..., ge=-1.0, le=1.0)
     event_type: str
     impact_score: int = Field(..., ge=1, le=10)
+    confidence_score: float = Field(default=0.85, ge=0.0, le=1.0, description="Highest softmax probability from model")
+    status: str = Field(default="AUTO_PROCESSED", description="AUTO_PROCESSED or REQUIRES_HUMAN_REVIEW")
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
 
 class RebalanceRequest(BaseModel):
     strategy: str = Field(default="SentimentTilted")

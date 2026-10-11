@@ -13,11 +13,14 @@ class DBRiskSignal(Base):
     sentiment_score = Column(Float, nullable=False)
     event_type = Column(String, nullable=False)
     impact_score = Column(Integer, nullable=False)
+    confidence_score = Column(Float, default=0.85, nullable=False)
+    status = Column(String, default="AUTO_PROCESSED", nullable=False)
     created_at = Column(DateTime, default=datetime.datetime.utcnow, nullable=False)
 
     __table_args__ = (
         Index('idx_risk_signal_ticker_created', 'ticker', 'created_at'),
     )
+
 
 class DBPortfolioSnapshot(Base):
     __tablename__ = 'portfolio_snapshot'
@@ -49,7 +52,22 @@ engine = create_engine(
 # Create tables
 Base.metadata.create_all(bind=engine)
 
+# Backward-compatible auto-migration for dev SQLite database
+with engine.connect() as conn:
+    from sqlalchemy import text
+    try:
+        conn.execute(text("ALTER TABLE risk_signal ADD COLUMN confidence_score FLOAT DEFAULT 0.85"))
+        conn.commit()
+    except Exception:
+        pass
+    try:
+        conn.execute(text("ALTER TABLE risk_signal ADD COLUMN status VARCHAR DEFAULT 'AUTO_PROCESSED'"))
+        conn.commit()
+    except Exception:
+        pass
+
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
 
 class PortfolioRepository:
     def __init__(self, session):
@@ -63,6 +81,8 @@ class PortfolioRepository:
             sentiment_score=risk_signal.sentiment_score,
             event_type=risk_signal.event_type,
             impact_score=risk_signal.impact_score,
+            confidence_score=getattr(risk_signal, 'confidence_score', 0.85),
+            status=getattr(risk_signal, 'status', 'AUTO_PROCESSED'),
             created_at=risk_signal.created_at.replace(tzinfo=None)
         )
         try:
@@ -73,6 +93,18 @@ class PortfolioRepository:
             self.session.rollback()
             raise e
             
+    def get_historical_signals(self, limit: int = 100):
+        """
+        Reads recent historical risk signals from the database.
+        """
+        records = (
+            self.session.query(DBRiskSignal)
+            .order_by(DBRiskSignal.created_at.desc())
+            .limit(limit)
+            .all()
+        )
+        return records
+
     def save_portfolio_rebalance(self, rebalance_response) -> str:
         """ACID compliant transaction spanning snapshot and all details."""
         try:
@@ -95,9 +127,45 @@ class PortfolioRepository:
             self.session.rollback()
             raise e
 
+def fetch_historical_signals_and_close(limit: int = 100):
+    """
+    Acquires a connection from QueuePool, fetches data, and releases the connection
+    IMMEDIATELY before any CPU-intensive quant mathematics begin.
+    """
+    from src.models.schemas import RiskSignal
+    with SessionLocal() as session:
+        repo = PortfolioRepository(session)
+        records = repo.get_historical_signals(limit=limit)
+        # Detach into Pydantic models with UTC datetimes
+        signals = [
+            RiskSignal(
+                id=uuid.UUID(r.id),
+                ticker=r.ticker,
+                sentiment_score=float(r.sentiment_score),
+                event_type=r.event_type,
+                impact_score=int(r.impact_score),
+                confidence_score=float(getattr(r, 'confidence_score', 0.85)),
+                status=str(getattr(r, 'status', 'AUTO_PROCESSED')),
+                created_at=r.created_at.replace(tzinfo=datetime.timezone.utc)
+            )
+            for r in records
+        ]
+        return signals
+
+
+def save_rebalance_and_close(rebalance_response) -> str:
+    """
+    Acquires a brief connection ONLY for the final atomic INSERT transaction,
+    committing and releasing the connection back to the QueuePool immediately.
+    """
+    with SessionLocal() as session:
+        repo = PortfolioRepository(session)
+        return repo.save_portfolio_rebalance(rebalance_response)
+
 def get_db():
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
+
