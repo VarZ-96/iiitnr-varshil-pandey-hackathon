@@ -63,8 +63,12 @@ Unstructured Feeds (Reuters, SEC, Bloomberg)
        └───────────────────────────┘       └───────────────────────────┘
 ```
 
-### Architecture Diagram
+### Architecture Diagram (HLD)
 ![System Architecture](docs/architecture.png)
+
+### Object-Oriented Design (LLD)
+*Demonstrating Strategy Pattern, Observer Pattern, and Dependency Injection for production resilience.*
+![Low Level Design](docs/lld_classes.png)
 
 ### Tech Stack
 - **API & Concurrency:** FastAPI (ASGI), Uvicorn, Starlette Threadpool, AnyIO, Python 3.12
