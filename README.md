@@ -5,8 +5,10 @@
 | **Candidate Name** | Varshil Pandey |
 | **College Email** | varshil24100@iiitnr.edu.in |
 | **College** | International Institute of Information Technology, Naya Raipur (IIIT-NR) |
-| **Demo Video Link** | [Watch YouTube Demo](https://youtu.be/qjXmQLSmd3c) |
+| **Demo Video Link** | [Watch YouTube Demo](https://youtu.be/qjXmQLSmd3c) *(Recommended to watch at 2x speed)* |
 | **Slide Deck Link** | [Presentation Slide Deck (docs/presentation.pdf)](docs/presentation.pdf) |
+
+> **Note on Video Walkthrough:** The demonstration is ~11 minutes and covers the complete end-to-end pipeline, quant mathematics, test suite, and live UI demo. Please watch the video at **2x playback speed** for an optimal viewing experience.
 
 ---
 
