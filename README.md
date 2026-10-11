@@ -1,12 +1,10 @@
-# Event-Driven Quantitative NLP Pipeline & Tactical Index Rebalancing Platform
+# Event-Driven Quantitative NLP Pipeline & Tactical Index Rebalancing Platform - S&P Global & Crisil Campus Hackathon
 
-| Field | Detail |
-| :--- | :--- |
-| **Candidate Name** | Varshil Pandey |
-| **College Email** | varshil24100@iiitnr.edu.in |
-| **College** | International Institute of Information Technology, Naya Raipur (IIIT-NR) |
-| **Demo Video Link** | [Watch YouTube Demo (Placeholder)](https://youtube.com/placeholder-demo) |
-| **Slide Deck Link** | [Presentation Slide Deck (docs/presentation.pdf)](docs/presentation.pdf) |
+**Candidate Name:** Varshil Pandey  
+**College Email ID:** varshil24100@iiitnr.edu.in  
+**College / Campus:** International Institute of Information Technology, Naya Raipur (IIIT-NR)  
+**Demo Video Link:** [YouTube (Unlisted) - Placeholder](https://youtube.com/placeholder-demo)  
+**Slide Deck Link (if hosted externally):** [Presentation Slide Deck (docs/presentation.pdf)](docs/presentation.pdf)  
 
 ---
 
@@ -104,6 +102,8 @@ Lightweight test fixture for quick functional validation during local setup.
 ---
 
 ## 4. Quickstart & Installation
+
+**Runtime:** Python 3.12 (also tested on Python 3.11) on Windows / Linux / macOS  
 
 Follow these exact steps to clone, configure, and launch the platform:
 
