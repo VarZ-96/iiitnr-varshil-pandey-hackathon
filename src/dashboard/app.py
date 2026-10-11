@@ -162,30 +162,77 @@ with st.sidebar.form(key="ingest_form"):
 # --- Main Dashboard ---
 col1, col2 = st.columns([3, 1])
 
+# Query latest row from PORTFOLIO_SNAPSHOT and related ALLOCATION_DETAIL records directly
+latest_db_weights = fetch_latest_portfolio_snapshot()
+if latest_db_weights:
+    st.session_state.portfolio_weights = latest_db_weights
+    active_weights = latest_db_weights
+else:
+    active_weights = st.session_state.portfolio_weights
+
 with col1:
     st.subheader("Current Portfolio Allocation")
-    df_alloc = pd.DataFrame(
-        list(st.session_state.portfolio_weights.items()),
-        columns=["Ticker", "Weight"]
-    )
     
-    # Altair Bar Chart
-    chart = alt.Chart(df_alloc).mark_bar(cornerRadiusTopLeft=3, cornerRadiusTopRight=3).encode(
-        x=alt.X('Ticker:N', sort='-y'),
-        y=alt.Y('Weight:Q', scale=alt.Scale(domain=[0, 0.3])),
-        color=alt.condition(
-            alt.datum.Weight > 0.1,
-            alt.value('#1f77b4'),     # Greater than baseline
-            alt.value('#ff7f0e')      # Less than baseline
-        ),
-        tooltip=['Ticker', alt.Tooltip('Weight:Q', format='.4f')]
+    # Prepare DataFrame with percentages, data labels, and direct hex bar colors
+    alloc_records = []
+    for ticker, weight in active_weights.items():
+        pct = weight * 100.0
+        if weight > 0.1001:
+            color = '#1f77b4'  # Overweight Blue
+            status = 'Overweight'
+        elif weight < 0.0999:
+            color = '#d95f02'  # Underweight Warm Amber/Red
+            status = 'Underweight'
+        else:
+            color = '#7f7f7f'  # Baseline 10% Neutral Gray
+            status = 'Neutral (10%)'
+
+        alloc_records.append({
+            "Ticker": ticker,
+            "Weight": float(weight),
+            "Percentage": f"{pct:.1f}%",
+            "Tooltip_Label": f"{ticker}: {pct:.1f}% ({weight:.4f})",
+            "Status": status,
+            "BarColor": color
+        })
+    df_alloc = pd.DataFrame(alloc_records)
+    
+    # Base Bar Chart
+    bars = alt.Chart(df_alloc).mark_bar(cornerRadiusTopLeft=4, cornerRadiusTopRight=4).encode(
+        x=alt.X('Ticker:N', sort='-y', title="Portfolio Asset"),
+        y=alt.Y('Weight:Q', scale=alt.Scale(domain=[0, 0.30]), title="Portfolio Weight"),
+        color=alt.Color('BarColor:N', scale=None, legend=None),
+        tooltip=[
+            alt.Tooltip('Ticker:N', title='Ticker'),
+            alt.Tooltip('Percentage:N', title='Allocation'),
+            alt.Tooltip('Weight:Q', format='.4f', title='Decimal Weight'),
+            alt.Tooltip('Status:N', title='Tilt Status')
+        ]
     ).properties(height=450)
     
-    # Render Box Constraint Guidelines
-    rule_min = alt.Chart(pd.DataFrame({'y': [0.02]})).mark_rule(color='red', strokeWidth=2, strokeDash=[5,5]).encode(y='y:Q')
-    rule_max = alt.Chart(pd.DataFrame({'y': [0.25]})).mark_rule(color='green', strokeWidth=2, strokeDash=[5,5]).encode(y='y:Q')
+    # Subtle Data Labels above bars showing exact percentage e.g. "18.8%"
+    data_labels = alt.Chart(df_alloc).mark_text(
+        align='center',
+        baseline='bottom',
+        dy=-4,
+        fontSize=11,
+        fontWeight='bold',
+        color='#333333'
+    ).encode(
+        x=alt.X('Ticker:N', sort='-y'),
+        y=alt.Y('Weight:Q'),
+        text='Percentage:N'
+    )
     
-    st.altair_chart(chart + rule_min + rule_max, use_container_width=True)
+    # Render Box Constraint Guidelines (Min 2%, Max 25%)
+    rule_min = alt.Chart(pd.DataFrame({'y': [0.02]})).mark_rule(
+        color='#d9534f', strokeWidth=2, strokeDash=[5,5]
+    ).encode(y='y:Q')
+    rule_max = alt.Chart(pd.DataFrame({'y': [0.25]})).mark_rule(
+        color='#5cb85c', strokeWidth=2, strokeDash=[5,5]
+    ).encode(y='y:Q')
+    
+    st.altair_chart(bars + data_labels + rule_min + rule_max, use_container_width=True)
 
 with col2:
     st.subheader("Optimization Constraints")
@@ -196,7 +243,7 @@ with col2:
     """)
     st.metric(
         label="Sum of All Weights", 
-        value=f"{sum(st.session_state.portfolio_weights.values()):.4f}", 
+        value=f"{sum(active_weights.values()):.4f}", 
         help="Strictly normalized to exactly 1.0"
     )
     st.metric(label="Algorithm", value="Iterative Simplex")

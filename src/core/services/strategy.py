@@ -23,7 +23,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 class SentimentTiltedStrategy(IRebalanceStrategy):
-    def __init__(self, alpha: float = 0.3, decay_lambda: float = 0.85):
+    def __init__(self, alpha: float = 2.5, decay_lambda: float = 0.85):
         self.alpha = alpha
         self.decay_lambda = decay_lambda
 
@@ -33,7 +33,10 @@ class SentimentTiltedStrategy(IRebalanceStrategy):
         Calculates rolling z-score against historical moving average.
         Returns True (flagged as FROZEN) if incoming signal shift > 3 standard deviations (|z| > 3.0).
         """
-        ticker_signals = [s for s in risk_signals if s.ticker == ticker]
+        ticker_signals = [
+            s for s in risk_signals 
+            if s.ticker == ticker and getattr(s, 'status', 'AUTO_PROCESSED') == 'AUTO_PROCESSED'
+        ]
         if len(ticker_signals) < 3:
             return False
 
@@ -64,10 +67,16 @@ class SentimentTiltedStrategy(IRebalanceStrategy):
         return False
 
     def calculate_weights(self, baseline_weights: Dict[str, float], risk_signals: List[RiskSignal]) -> Dict[str, float]:
+        # Filter strictly for AUTO_PROCESSED signals
+        valid_signals = [
+            s for s in risk_signals 
+            if getattr(s, 'status', 'AUTO_PROCESSED') == 'AUTO_PROCESSED'
+        ]
+
         # 1. Volatility Guard: Identify frozen assets due to sentiment flash crashes
         frozen_assets = set()
         for ticker in baseline_weights:
-            if self._check_sentiment_volatility(ticker, risk_signals):
+            if self._check_sentiment_volatility(ticker, valid_signals):
                 frozen_assets.add(ticker)
 
         # 2. Calculate time-decayed aggregated sentiment (S_avg)
@@ -76,8 +85,19 @@ class SentimentTiltedStrategy(IRebalanceStrategy):
         s_avg_map = {ticker: 0.0 for ticker in baseline_weights}
         decay_sum_map = {ticker: 0.0 for ticker in baseline_weights}
         
-        for signal in risk_signals:
-            if signal.ticker in s_avg_map:
+        # Group valid signals by ticker and sort by recency (newest first)
+        ticker_signals_map: Dict[str, List[RiskSignal]] = {t: [] for t in baseline_weights}
+        for signal in valid_signals:
+            if signal.ticker in ticker_signals_map:
+                ticker_signals_map[signal.ticker].append(signal)
+
+        for ticker, sigs in ticker_signals_map.items():
+            sigs_sorted = sorted(
+                sigs, 
+                key=lambda s: s.created_at.replace(tzinfo=datetime.timezone.utc) if s.created_at.tzinfo is None else s.created_at, 
+                reverse=True
+            )
+            for rank, signal in enumerate(sigs_sorted):
                 created = signal.created_at
                 if created.tzinfo is None:
                     created = created.replace(tzinfo=datetime.timezone.utc)
@@ -85,15 +105,17 @@ class SentimentTiltedStrategy(IRebalanceStrategy):
                 if age_days < 0:
                     age_days = 0.0
                 
-                # Prevent float underflow with safe minimum bounding epsilon (1e-9)
-                raw_decay = math.exp(-self.decay_lambda * age_days)
-                decay_factor = max(raw_decay, 1e-9)
+                # Exponential decay by time and recency rank so latest events drive tactical shift
+                time_decay = max(math.exp(-self.decay_lambda * age_days), 1e-9)
+                rank_decay = 0.35 ** rank
+                decay_factor = time_decay * rank_decay
                 
-                impact_factor = signal.impact_score / 10.0
+                # Scaled impact factor: baseline 0.4 + proportional impact up to 1.0
+                impact_factor = 0.4 + 0.6 * (signal.impact_score / 10.0)
                 weighted_sentiment = signal.sentiment_score * impact_factor * decay_factor
                 
-                s_avg_map[signal.ticker] += weighted_sentiment
-                decay_sum_map[signal.ticker] += decay_factor
+                s_avg_map[ticker] += weighted_sentiment
+                decay_sum_map[ticker] += decay_factor
 
         # Normalize S_avg by decay factor weights using epsilon to prevent ZeroDivisionError
         for ticker in s_avg_map:
