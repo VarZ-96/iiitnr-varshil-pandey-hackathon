@@ -3,7 +3,7 @@
 | Field | Detail |
 | :--- | :--- |
 | **Candidate Name** | Varshil Pandey |
-| **College Email** | varshil22100@iiitnr.edu.in |
+| **College Email** | varshil24100@iiitnr.edu.in |
 | **College** | International Institute of Information Technology, Naya Raipur (IIIT-NR) |
 | **Demo Video Link** | [Watch YouTube Demo (Placeholder)](https://youtube.com/placeholder-demo) |
 | **Slide Deck Link** | [Presentation Slide Deck (docs/presentation.pdf)](docs/presentation.pdf) |
