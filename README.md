@@ -163,6 +163,7 @@ streamlit run src/dashboard/app.py --server.port 8501 --server.headless true
 ### Empirical Benchmark Results
 Rigorous evaluation using the automated test suite in [`tests/test_benchmark_guardrails.py`](tests/test_benchmark_guardrails.py) yielded the following results:
 
+```text
 ============================================================
 TEST REPORT: ENTERPRISE GUARDRAILS & PERFORMANCE
 ============================================================
@@ -187,8 +188,8 @@ TEST REPORT: ENTERPRISE GUARDRAILS & PERFORMANCE
 - Classification: Worked as Expected
 - Bottlenecks Identified (Event Loop, Threadpool, DB Pool): None detected. Starlette run_in_threadpool offloading and fire-and-forget Event Bus prevented ASGI blocking.
 - Improvements Needed (if any): Connection pool QueuePool(20) and short-lived atomic DB commits handled concurrent writes without connection starvation.
-
 ============================================================
+```
 
 ### Financial Domain Impact
 1. **Flash Crash Mitigation:** The z-score volatility guard successfully halts panic rebalancing during extreme sentiment spikes ($|z| > 3.0$), insulating index tracking portfolios from flash-crash losses.
